@@ -47,3 +47,38 @@ const swiper = new Swiper('.swiper', {
     prevEl: '.swiper-button-prev',
   },
 });
+
+//mobile header toggle active
+// 1.아이콘 클릭 2. 아이콘에 'on' 클래스 추가(toggle) 3.네비게이션 높이 저장 4.'on'클래스가 있을 때 네비게이션 활성화
+// 5.'on'클래스가 없을 때 네비게이션 비활성화
+
+const menuIcon = document.querySelector('.menu-icon'); //메뉴 아이콘 요소 저장
+const navi = document.querySelector('.navi'); //네비게이션 박스 요소 저장
+
+// console.log('menuIcon', menuIcon);
+// console.log('navi', navi);
+
+menuIcon.addEventListener('click', function () {
+  // console.log(this);
+  this.classList.toggle('on'); //menu-icon 클릭할 때 마다 on 클래스 추가 및 제거
+  const navHeight = navi.scrollHeight; //navi 박스의 자식요소를 포함한 높이
+  console.log(navHeight);
+
+  if (this.classList.contains('on')) {
+    navi.style.height = navHeight + 'px';
+  } else {
+    navi.style.height = 0;
+  }
+});
+
+//IF PC size browser, navigation height to normal
+window.addEventListener('resize', function () {
+  const winWidth = window.outerWidth;
+
+  if (winWidth > 980) {
+    menuIcon.classList.remove('on');
+    navi.style.height = 'auto';
+  } else {
+    navi.style.height = 0;
+  }
+});
